@@ -1,0 +1,60 @@
+name: gateway
+
+services:
+  
+  kong:
+    image: kong:3.9.1
+    container_name: kong
+    restart: unless-stopped
+    networks:
+      - shared-net
+    env_file: 
+      - kong.env
+    ports:
+      - "80:8000"
+      - "443:8443"
+      - "${PORT_ADMIN2}:${PORT_ADMIN2}"
+      - "${PORT_ADMIN1}:${PORT_ADMIN1}"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${PORT_ADMIN1}"]
+      interval: 5s
+      timeout: 2s
+      retries: 15
+  
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    restart: unless-stopped
+    env_file: 
+      - postgres.env
+    volumes:
+      - postgres_data_dist:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dbadmin"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - shared-net
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    env_file: 
+      - pgadmin.env
+    networks:
+      - shared-net
+    volumes:
+      - pgadmin_data_dist:/var/lib/pgadmin
+
+volumes:
+  postgres_data_dist:
+    external: true
+  pgadmin_data_dist:
+    external: true
+  
+networks:
+  shared-net:
+    name: ${SHARED_NETWORK}
+    external: true

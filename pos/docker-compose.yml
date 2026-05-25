@@ -1,0 +1,42 @@
+name: pos
+
+services:
+  pos-apps:
+    image: ${IMAGE_APPS}
+    container_name: pos-apps
+    restart: unless-stopped
+    networks:
+      - shared-net
+
+  pos-api:
+    image: ${IMAGE_POS_API}
+    #command: sleep infinite
+    container_name: pos-api
+    restart: unless-stopped
+    env_file: posapi.env
+    networks:
+      - shared-net
+    volumes:
+      - keys_tiny_dist:/app/private
+      
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: unless-stopped
+    networks:
+      - shared-net
+    healthcheck:
+      test: ["CMD", "redis", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  keys_tiny_dist:
+    external: true
+
+networks:
+  shared-net:
+    name: ${SHARED_NETWORK}
+    external: true
+

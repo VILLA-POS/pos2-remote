@@ -1,0 +1,17 @@
+name: pos
+services:
+
+  # Migraciones de la base de datos de Kong
+  pos-kong-mig:
+    container_name: pos-kong-mig
+    image: kong:3.9.1
+    networks:
+      - shared-net
+    env_file: 
+      - kong.env
+    command: kong migrations bootstrap
+
+networks:
+  shared-net:
+    name: ${SHARED_NETWORK}
+    external: true

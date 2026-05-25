@@ -1,0 +1,29 @@
+name: tinyauth
+
+services:
+  tinyauth-ui:
+    image: ${IMAGE_TINY_UI}
+    container_name: tinyauth-ui
+    restart: unless-stopped
+    networks:
+      - shared-net
+      
+  tinyauth-api:
+    image: ${IMAGE_TINYAUTH_API}
+    container_name: tinyauth-api
+    restart: unless-stopped
+    env_file:
+      - tinyauth.env
+    networks:
+      - shared-net
+    volumes:
+      - keys_tiny_dist:/app/private
+      
+volumes:
+  keys_tiny_dist:
+    external: true
+
+networks:
+  shared-net:
+    name: ${SHARED_NETWORK}
+    external: true
