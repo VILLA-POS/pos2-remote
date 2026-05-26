@@ -18,7 +18,18 @@ services:
       - shared-net
     volumes:
       - keys_tiny_dist:/app/private
-      
+
+  sync-agent:
+    image: ${IMAGE_SYNC_AGENT}
+    #command: sleep infinite
+    restart: unless-stopped
+    env_file: 
+      - syncagent.env
+    networks:
+      - shared-net
+    volumes:
+      - keys_tiny_dist:/app/private
+
   redis:
     image: redis:7-alpine
     container_name: redis
