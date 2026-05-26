@@ -5,3 +5,5 @@ postgres.env
 posapi.env
 tinyauth.env
 syncagent.env
+.env
+
