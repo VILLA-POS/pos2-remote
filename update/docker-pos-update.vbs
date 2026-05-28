@@ -1,0 +1,12 @@
+' Launcher silencioso para Docker POS Update
+' Ejecuta el .bat SIN mostrar ventana negra de CMD
+
+Dim objShell
+Set objShell = CreateObject("WScript.Shell")
+
+' Cambia la ruta si mueves el .bat a otro lugar
+' 1=muestra ventana normal, 0=oculta la ventana, 2=muestra minimizada, 3=muestra maximizada
+
+objShell.Run "cmd /c ""C:\Users\Pos01\Desktop\docker-pos-update.bat""", 1, False
+
+Set objShell = Nothing

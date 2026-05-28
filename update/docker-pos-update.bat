@@ -1,0 +1,41 @@
+@echo off
+title Docker POS - Actualizando servicios...
+color 0A
+
+echo ============================================
+echo   DOCKER POS2 - REMOTE UPDATE
+echo ============================================
+echo.
+
+echo [1/2] Descargando imagenes nuevas (pull)...
+echo.
+docker compose -f "C:\Users\Pos01\Documents\pos2-remote\pos\docker-compose.yml" pull
+
+if %ERRORLEVEL% NEQ 0 (
+    color 0C
+    echo.
+    echo [ERROR] Fallo el docker compose pull.
+    echo Verifica que Docker Desktop este corriendo.
+    pause
+    exit /b 1
+)
+
+echo.
+echo [2/2] Levantando contenedores en segundo plano...
+echo.
+docker compose -f "C:\Users\Pos01\Documents\pos2-remote\pos\docker-compose.yml" up -d
+
+if %ERRORLEVEL% NEQ 0 (
+    color 0C
+    echo.
+    echo [ERROR] Fallo el docker compose up -d.
+    pause
+    exit /b 1
+)
+
+echo.
+echo ============================================
+echo   LISTO - Contenedores actualizados OK
+echo ============================================
+echo.
+timeout /t 5
