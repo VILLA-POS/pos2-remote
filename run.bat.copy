@@ -15,7 +15,7 @@ echo Generando archivos de configuracion desde plantillas .copy...
 echo.
 
 powershell -ExecutionPolicy Bypass -Command ^
-    "$root = $env:INSTALL_PATH; $vars = @{ INSTALL_PATH=$root; DB_PASS=$env:DB_PASS; PGADMIN_PASS=$env:PGADMIN_PASS; REALM=$env:REALM; NODE_ID=$env:NODE_ID; SYNC_CLIENT_ID=$env:SYNC_CLIENT_ID; SYNC_CLIENT_SECRET=$env:SYNC_CLIENT_SECRET; SMTP_PASS=$env:SMTP_PASS; MASTER_PASS=$env:MASTER_PASS }; Get-ChildItem -Path $root -Filter '*.copy' -Recurse | ForEach-Object { $dst = $_.FullName -replace '\.copy$', ''; $content = Get-Content $_.FullName -Raw; foreach ($k in $vars.Keys) { $content = $content -replace [regex]::Escape('{' + $k + '}'), $vars[$k] }; [System.IO.File]::WriteAllText($dst, $content); Write-Host ('  OK: ' + $dst.Replace($root + '\', '')) }"
+    "$root = '%~dp0'.TrimEnd('\'); $vars = @{ INSTALL_PATH=$root; DB_PASS=$env:DB_PASS; PGADMIN_PASS=$env:PGADMIN_PASS; REALM=$env:REALM; NODE_ID=$env:NODE_ID; SYNC_CLIENT_ID=$env:SYNC_CLIENT_ID; SYNC_CLIENT_SECRET=$env:SYNC_CLIENT_SECRET; SMTP_PASS=$env:SMTP_PASS; MASTER_PASS=$env:MASTER_PASS }; Get-ChildItem -Path $root -Filter '*.copy' -Recurse | ForEach-Object { $dst = $_.FullName -replace '\.copy$', ''; $content = Get-Content $_.FullName -Raw; foreach ($k in $vars.Keys) { $content = $content -replace [regex]::Escape('{' + $k + '}'), $vars[$k] }; [System.IO.File]::WriteAllText($dst, $content); Write-Host ('  OK: ' + $dst.Replace($root + '\', '')) }"
 
 echo.
 echo Listo.
