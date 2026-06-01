@@ -10,6 +10,14 @@ set "SYNC_CLIENT_SECRET=xxxxx"
 set "SMTP_PASS=xxxx"
 set "MASTER_PASS=xxx"
 
+:: ===== CREAR VOLUMENES DOCKER =====
+echo Creando volumenes Docker...
+docker volume create pgadmin_data_dist
+docker volume create postgres_data_dist
+docker volume create keys_tiny_dist
+echo.
+
+
 :: ===== GENERAR ARCHIVOS DESDE PLANTILLAS .copy =====
 echo Generando archivos de configuracion desde plantillas .copy...
 echo.
