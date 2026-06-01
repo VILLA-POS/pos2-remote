@@ -6,5 +6,7 @@ posapi.env
 tinyauth.env
 syncagent.env
 run.bat
+docker-pos-update.bat
+docker-pos-update.vbs
 
 

@@ -9,7 +9,7 @@ echo.
 
 echo [1/2] Descargando imagenes nuevas (pull)...
 echo.
-docker compose -f "C:\Users\Pos01\Documents\pos2-remote\pos\docker-compose.yml" pull
+docker compose -f "{INSTALL_PATH}\pos\docker-compose.yml" pull
 
 if %ERRORLEVEL% NEQ 0 (
     color 0C
@@ -23,7 +23,7 @@ if %ERRORLEVEL% NEQ 0 (
 echo.
 echo [2/2] Levantando contenedores en segundo plano...
 echo.
-docker compose -f "C:\Users\Pos01\Documents\pos2-remote\pos\docker-compose.yml" up -d
+docker compose -f "{INSTALL_PATH}\pos\docker-compose.yml" up -d
 
 if %ERRORLEVEL% NEQ 0 (
     color 0C
