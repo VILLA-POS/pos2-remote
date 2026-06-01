@@ -16,7 +16,7 @@ services:
       - "${PORT_ADMIN2}:${PORT_ADMIN2}"
       - "${PORT_ADMIN1}:${PORT_ADMIN1}"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:${PORT_ADMIN1}"]
+      test: ["CMD", "curl", "-f", "http://localhost:$PORT_ADMIN1"]
       interval: 5s
       timeout: 2s
       retries: 15

@@ -21,6 +21,7 @@ services:
 
   sync-agent:
     image: ${IMAGE_SYNC_AGENT}
+    container_name: sync-agent
     #command: sleep infinite
     restart: unless-stopped
     env_file: 
