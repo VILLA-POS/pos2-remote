@@ -16,4 +16,6 @@ print-agent-linux
 run-hidden.ps1
 setup-task.ps1
 
+config.json
+
 

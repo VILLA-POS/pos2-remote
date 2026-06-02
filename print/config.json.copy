@@ -1,0 +1,16 @@
+{
+  "_comment": "Copiar este archivo como config.json y rellenar los valores reales",
+  "qr_order_url": "https://v-nta.com/admin/order",
+  "api_url": "https://{REALM}.v-nta.com",
+  "location_id": "{LOCATION_ID}",
+  "printer_name": "CAJA01_PRINTER",
+
+  "auth_url": "https://{REALM}.v-nta.com/tnapi/v1/{REALM}/auth/token",
+  "oauth_client_id": "{SYNC_CLIENT_ID}",
+  "oauth_client_secret": "{SYNC_CLIENT_SECRET}",
+
+  "printer_device": "Gainscha_GA_E200I",
+
+  "tls_reject_unauthorized": false,
+  "poll_interval_ms": 3000
+}
