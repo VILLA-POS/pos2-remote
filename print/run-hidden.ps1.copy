@@ -1,0 +1,16 @@
+Start-Process `
+  -FilePath "{INSTALL_PATH}\print\print-agent-windows.exe" `
+  -WorkingDirectory "{INSTALL_PATH}\print\" `
+  -WindowStyle Hidden `
+  -PassThru | Out-Null
+
+while ($true) {
+    $running = Get-Process -Name "print-agent-windows" -ErrorAction SilentlyContinue
+    if (-not $running) {
+        Start-Process `
+          -FilePath "{INSTALL_PATH}\print\print-agent-windows.exe" `
+          -WorkingDirectory "{INSTALL_PATH}\print\" `
+          -WindowStyle Hidden
+    }
+    Start-Sleep -Seconds 10
+}

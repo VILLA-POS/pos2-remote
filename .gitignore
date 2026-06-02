@@ -13,4 +13,7 @@ print-agent-macos
 print-agent-windows.exe
 print-agent-linux
 
+run-hidden.ps1
+setup-task.ps1
+
 

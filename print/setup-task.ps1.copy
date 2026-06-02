@@ -1,0 +1,22 @@
+Unregister-ScheduledTask -TaskName "POS Print Agent" -Confirm:$false -ErrorAction SilentlyContinue
+
+$action = New-ScheduledTaskAction `
+  -Execute "powershell.exe" `
+  -Argument "-ExecutionPolicy Bypass -WindowStyle Hidden -NonInteractive -File `"{INSTALL_PATH}\print\run-hidden.ps1`"" `
+  -WorkingDirectory "{INSTALL_PATH}\print\"
+
+$trigger = New-ScheduledTaskTrigger -AtLogOn
+
+$settings = New-ScheduledTaskSettingsSet `
+  -RestartCount 3 `
+  -RestartInterval (New-TimeSpan -Minutes 1) `
+  -ExecutionTimeLimit (New-TimeSpan -Hours 0)
+
+Register-ScheduledTask `
+  -TaskName "POS Print Agent" `
+  -Action $action `
+  -Trigger $trigger `
+  -Settings $settings `
+  -RunLevel Highest
+
+Start-ScheduledTask -TaskName "POS Print Agent"
