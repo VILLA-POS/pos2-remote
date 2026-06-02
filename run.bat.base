@@ -9,7 +9,7 @@ set "SYNC_CLIENT_ID=xxxx"
 set "SYNC_CLIENT_SECRET=xxxxx"
 set "SMTP_PASS=xxxx"
 set "MASTER_PASS=xxx"
-set LOCATION_ID="xxx"
+set "LOCATION_ID=xxx"
 
 
 :: ===== CREAR VOLUMENES DOCKER =====
