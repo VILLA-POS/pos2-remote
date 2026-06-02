@@ -9,4 +9,8 @@ run.bat
 docker-pos-update.bat
 
 
+print-agent-macos
+print-agent-windows.exe
+print-agent-linux
+
 
