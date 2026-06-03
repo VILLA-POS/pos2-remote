@@ -1,0 +1,4 @@
+#!/bin/bash
+# Run the PowerShell as admin 
+# luego copia y ejecuta este comando en la terminal de PowerShell para configurar la tarea programada
+powershell.exe -ExecutionPolicy Bypass -File "{INSTALL_PATH}\print\setup-task.ps1"
