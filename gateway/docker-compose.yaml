@@ -54,9 +54,11 @@ services:
     restart: always
     ports:
       - "9000:9000"
+    command: -H tcp://host.docker.internal:2375
     volumes:
       - portainer_data:/data
-    command: -H npipe:////./pipe/dockerDesktopLinuxEngine
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
 volumes:
   postgres_data_dist:
