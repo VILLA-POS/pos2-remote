@@ -56,7 +56,7 @@ services:
       - "9000:9000"
     volumes:
       - portainer_data:/data
-    command: --base-url / -H npipe:////./pipe/docker_engine
+    command: -H npipe:////./pipe/docker_engine_linux
 
 volumes:
   postgres_data_dist:
