@@ -47,9 +47,21 @@ services:
       - shared-net
     volumes:
       - pgadmin_data_dist:/var/lib/pgadmin
+  
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - //./pipe/docker_engine://./pipe/docker_engine
+      - portainer_data:/data
 
 volumes:
   postgres_data_dist:
+    external: true
+  portainer_data:
     external: true
   pgadmin_data_dist:
     external: true
