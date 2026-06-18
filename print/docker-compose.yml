@@ -1,0 +1,18 @@
+name: pos
+
+services:
+  print-agent:
+    image: ${IMAGE_PRINT_AGENT}
+    container_name: print-agent
+    #command: sleep infinite
+    restart: unless-stopped
+    networks:
+      - shared-net
+    volumes:
+      - bin:/app/bin
+
+networks:
+  shared-net:
+    name: ${SHARED_NETWORK}
+    external: true
+
