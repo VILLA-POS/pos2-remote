@@ -1,5 +1,5 @@
 $proc = New-Object System.Diagnostics.ProcessStartInfo
-$proc.FileName = "{INSTALL_PATH}\print\print-agent-windows.exe"
+$proc.FileName = "{INSTALL_PATH}\print\bin\print-agent-windows.exe"
 $proc.WorkingDirectory = "{INSTALL_PATH}\print\"
 $proc.WindowStyle = [System.Diagnostics.ProcessWindowStyle]::Hidden
 $proc.UseShellExecute = $false
