@@ -1,4 +1,5 @@
-$logsDir = "{INSTALL_PATH}\print\logs"
+$installPath = "{INSTALL_PATH}"
+$logsDir = "$installPath\print\logs"
 if (-not (Test-Path $logsDir)) { New-Item -ItemType Directory -Path $logsDir | Out-Null }
 
 Get-ChildItem "$logsDir\agent-*.log" -ErrorAction SilentlyContinue |
@@ -8,13 +9,21 @@ Get-ChildItem "$logsDir\agent-*.log" -ErrorAction SilentlyContinue |
 while ($true) {
     $logFile = "$logsDir\agent-$(Get-Date -Format 'yyyy-MM-dd').log"
 
+    $errFile = "$logsDir\agent-$(Get-Date -Format 'yyyy-MM-dd').err.log"
+
     $p = Start-Process `
-      -FilePath "{INSTALL_PATH}\print\bin\print-agent-windows.exe" `
-      -WorkingDirectory "{INSTALL_PATH}\print\" `
+      -FilePath "$installPath\print\bin\print-agent-windows.exe" `
+      -WorkingDirectory "$installPath\print\" `
       -WindowStyle Hidden `
       -RedirectStandardOutput $logFile `
-      -RedirectStandardError $logFile `
+      -RedirectStandardError $errFile `
       -PassThru
+
+    if (-not $p) {
+        Add-Content $logFile "[$(Get-Date)] ERROR: no se pudo iniciar el proceso"
+        Start-Sleep -Seconds 10
+        continue
+    }
 
     $p.WaitForExit()
 
