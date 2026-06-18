@@ -9,7 +9,7 @@ services:
     networks:
       - shared-net
     volumes:
-      - bin:/app/bin
+      - ./bin:/app/bin
 
 networks:
   shared-net:
