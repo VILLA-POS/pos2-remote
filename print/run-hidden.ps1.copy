@@ -1,6 +1,22 @@
+$logsDir = "{INSTALL_PATH}\print\logs"
+if (-not (Test-Path $logsDir)) { New-Item -ItemType Directory -Path $logsDir | Out-Null }
+
+# Borrar logs de más de 7 días
+Get-ChildItem "$logsDir\agent-*.log" -ErrorAction SilentlyContinue |
+    Where-Object { $_.LastWriteTime -lt (Get-Date).AddDays(-7) } |
+    Remove-Item
+
+$logFile = "$logsDir\agent-$(Get-Date -Format 'yyyy-MM-dd').log"
+
 $proc = New-Object System.Diagnostics.ProcessStartInfo
 $proc.FileName = "{INSTALL_PATH}\print\bin\print-agent-windows.exe"
 $proc.WorkingDirectory = "{INSTALL_PATH}\print\"
 $proc.WindowStyle = [System.Diagnostics.ProcessWindowStyle]::Hidden
 $proc.UseShellExecute = $false
-[System.Diagnostics.Process]::Start($proc) | Out-Null
+$proc.RedirectStandardOutput = $true
+$proc.RedirectStandardError = $true
+
+$p = [System.Diagnostics.Process]::Start($proc)
+
+$p.StandardOutput.ReadToEnd() | Add-Content $logFile
+$p.StandardError.ReadToEnd() | Add-Content $logFile
