@@ -4,6 +4,8 @@ services:
   pos-apps:
     image: ${IMAGE_APPS}
     container_name: pos-apps
+    env_file: 
+      - .env
     restart: unless-stopped
     networks:
       - shared-net
@@ -13,9 +15,13 @@ services:
     #command: sleep infinite
     container_name: pos-api
     restart: unless-stopped
-    env_file: posapi.env
+    env_file: 
+      - .env
+      - posapi.env
     networks:
       - shared-net
+    extra_hosts:
+      - "v-ntal.com:19.16.68.119"
     volumes:
       - keys_tiny_dist:/app/private
 

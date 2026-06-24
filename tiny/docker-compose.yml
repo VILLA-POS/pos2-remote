@@ -5,6 +5,8 @@ services:
     image: ${IMAGE_TINY_UI}
     container_name: tinyauth-ui
     restart: unless-stopped
+    env_file:
+      - .env
     networks:
       - shared-net
       
@@ -13,9 +15,12 @@ services:
     container_name: tinyauth-api
     restart: unless-stopped
     env_file:
+      - .env
       - tinyauth.env
     networks:
       - shared-net
+    extra_hosts:
+      - "v-ntal.com:19.16.68.119"
     volumes:
       - keys_tiny_dist:/app/private
       
