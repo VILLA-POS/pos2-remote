@@ -4,8 +4,6 @@ services:
   pos-apps:
     image: ${IMAGE_APPS}
     container_name: pos-apps
-    env_file: 
-      - .env
     restart: unless-stopped
     networks:
       - shared-net
@@ -16,7 +14,6 @@ services:
     container_name: pos-api
     restart: unless-stopped
     env_file: 
-      - .env
       - posapi.env
     networks:
       - shared-net
